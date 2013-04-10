@@ -57,7 +57,6 @@ class Vector extends Point
         Math.sqrt(@x*@x + @y*@y + @z*@z)
 
     scale: (n) ->
-        # [@x, @y, @z] = [@x*n, @y*n, @z*n]
         new Vector @x*n, @y*n, @z*n
 
     dot: (other) ->
@@ -79,13 +78,13 @@ class Vector extends Point
     getType: ->
         'Vector'
 
+
 EPSILON = 0.00001
 Vector.ZERO = new Vector(0,0,0)
 Vector.RIGHT = new Vector(1,0,0)
 Vector.UP = new Vector(0,1,0)
 Vector.OUT = new Vector(0,0,1)
 Point.ZERO = new Point(0, 0, 0)
-
 
 
 addColours = (a, scale, b) ->
@@ -153,9 +152,7 @@ class SimpleSurface
 
     colourAt: (scene, ray, p, normal) ->
         b = @baseColourAt p
-
         c = [0, 0, 0]
-
 
         if @specular > 0
             reflectedRay = new Ray p, ray.vector.reflectThrough(normal)
@@ -232,11 +229,8 @@ class Scene
         for y in [0...canvas.height]
             currentfraction = y / canvas.height
             if currentfraction - previousfraction > 0.05
-                # canvas.save()  # what does it do?
                 console.log "#{Math.round currentfraction * 100} complete"
                 previousfraction = currentfraction
-
-                # canvas.updateCanvas()
 
             for x in [0...canvas.width]
                 xcomp = vpRight.scale(x * pixelWidth - halfWidth)
@@ -246,9 +240,6 @@ class Scene
                 colour = @rayColour ray
                 canvas.plot x, y, colour
 
-            # canvas.updateCanvas()
-
-        # canvas.updateCanvas()
         console.log 'completed'
 
     rayColour: (ray) ->

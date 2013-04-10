@@ -5,7 +5,6 @@ class Canvas
     constructor: (options={}) ->
         this[key] = value for key, value of options
         @createCanvas()
-        # @paintBackground()
 
     createCanvas: ->
         canvas = document.createElement 'canvas'
@@ -13,7 +12,6 @@ class Canvas
         canvas.height = @height
         document.body.appendChild canvas
         @ctx = canvas.getContext '2d'
-        # @ctx.fillStyle = "#FF0000"
         @canvasData = @ctx.getImageData 0, 0, @width, @height
 
     putInRange: (value) ->
@@ -68,7 +66,6 @@ class Vector extends Point
         Math.sqrt(@x*@x + @y*@y + @z*@z)
 
     scale: (n) ->
-        # [@x, @y, @z] = [@x*n, @y*n, @z*n]
         new Vector @x*n, @y*n, @z*n
 
     dot: (other) ->
@@ -90,13 +87,13 @@ class Vector extends Point
     getType: ->
         'Vector'
 
+
 EPSILON = 0.00001
 Vector.ZERO = new Vector(0,0,0)
 Vector.RIGHT = new Vector(1,0,0)
 Vector.UP = new Vector(0,1,0)
 Vector.OUT = new Vector(0,0,1)
 Point.ZERO = new Point(0, 0, 0)
-
 
 
 addColours = (a, scale, b) ->
@@ -164,9 +161,7 @@ class SimpleSurface
 
     colourAt: (scene, ray, p, normal) ->
         b = @baseColourAt p
-
         c = [0, 0, 0]
-
 
         if @specular > 0
             reflectedRay = new Ray p, ray.vector.reflectThrough(normal)
@@ -305,7 +300,6 @@ class RayTracer
             sphere = new Sphere centre, radius
             @scene.addObject sphere, surface
 
-        # @scene.addObject new Halfspace(new Point(0,0,0), Vector.UP), new SimpleSurface([0, 1, 1])
         @scene.addObject new Halfspace(new Point(0,0,0), Vector.UP), new CheckerboardSurface()
 
         start = new Date
